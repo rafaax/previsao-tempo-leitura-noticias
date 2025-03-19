@@ -8,10 +8,13 @@ from utils.Transform import Transform
 regexObject = Regex()
 extractionObject = Extraction()
 chartsObject = Charts()
-
-news = {i: f"news/{i}.txt" for i in range(1, 21)} # declara um array indexado para armazenar o caminho das noticias na pasta news
+transformDataframeObject = Transform()
 
 df = pd.read_csv('mocks/dataset.csv')
+news = {i: f"news/{i}.txt" for i in range(1, 21)} # declara um array indexado para armazenar o caminho das noticias na pasta news
+
+extractionObject.extract_dataset_by_state(df)
+dataset_files = [f"datasets/logs_{estado}.csv" for estado in df['state'].unique()]
 
 timestamp = df['timestamp']
 user_name = df['name'] 
