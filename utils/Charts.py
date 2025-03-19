@@ -10,4 +10,5 @@ class Charts:
         matplot.figure(figsize=(8, 8))
         matplot.pie(values, labels=values.index, autopct='%1.1f%%', colors=self.colors, startangle=140)
         matplot.title('Porcentagem de Categorias de Notícias Mais Lidas')
+        matplot.savefig('results/categorias_mais_lidas.jpg', dpi=300)
         matplot.show()

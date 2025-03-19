@@ -2,6 +2,7 @@ import pandas as pd
 from utils.Regex import Regex
 from utils.Extraction import Extraction
 from utils.Charts import Charts
+from utils.Transform import Transform
 
 
 regexObject = Regex()
@@ -10,9 +11,7 @@ chartsObject = Charts()
 
 news = {i: f"news/{i}.txt" for i in range(1, 21)} # declara um array indexado para armazenar o caminho das noticias na pasta news
 
-df = pd.read_csv('datasets/MOCK_DATA.csv')
-
-# print(df.to_json())
+df = pd.read_csv('mocks/dataset.csv')
 
 timestamp = df['timestamp']
 user_name = df['name'] 
@@ -30,5 +29,4 @@ df['category'] = news_id.apply(lambda x: regexObject.identifyNewsCategory(news[i
 category_counts = df['category'].value_counts() ## faz a contagem das categorias, para gerar o gráfico
 
 chartsObject.generatePieChart(category_counts)
-# extract_dataset_by_state(df)
 
