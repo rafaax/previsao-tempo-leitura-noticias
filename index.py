@@ -1,6 +1,6 @@
 import pandas as pd
-from Regex import Regex
-from Extraction import Extraction
+from utils.Regex import Regex
+from utils.Extraction import Extraction
 from utils.Charts import Charts
 
 
