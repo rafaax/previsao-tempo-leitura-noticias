@@ -70,6 +70,13 @@ class Regex():
         self.news_best_category = {}
 
     def identifyNewsCategory(self, news_path):
+        ############################ Comentarios
+        # len() conta quantas vezes aquela categoria passou pela iteração e cabe no regex passado acima na classe
+        # re.IGNORECASE faz a busca independente de letras maiusculas e minusculas 
+        # o metodo .items retorna o conteudo do array _regex que contem as regras para cada categoria de noticia
+        # o metodo findAll do regex busca todas ocorrencias do padrão que foi estipulado na _regex, e retorna uma lista, com essa lista ele faz a contagem com o len()
+        ############################
+
         
         if news_path in self.news_best_category: ## valida se a noticia ja foi analisada, e retorna a melhor categoria salva no array
             return self.news_best_category[news_path] # busca o caminho da noticia que esta no csv no array de news_best_category que armazena a melhor categoria baseada num id de noticia ja avalido
@@ -81,18 +88,7 @@ class Regex():
             category_count = {
                 category: len(re.findall(pattern, news_text, re.IGNORECASE))
                 for category, pattern in self._regex.items()
-            } 
-            ############################ Comentarios
-
-
-            # len() conta quantas vezes aquela categoria passou pela iteração e cabe no regex passado acima na classe
-            # re.IGNORECASE faz a busca independente de letras maiusculas e minusculas 
-            # o metodo .items retorna o conteudo do array _regex que contem as regras para cada categoria de noticia
-            # o metodo findAll do regex busca todas ocorrencias do padrão que foi estipulado na _regex, e retorna uma lista, com essa lista ele faz a contagem com o len()
-
-            
-            ############################
-
+            }
             # print(category_count)
 
             best_category = max(category_count, key=category_count.get) # pega a categoria com maior numero de correspondências avaliados anteriormente
@@ -100,7 +96,7 @@ class Regex():
             if category_count[best_category] == 0:
                 return "Indefinido" # caso a melhor categoria aparece 0x no array, ou seja, nao tem melhor categoria, ele atribui um indefinido
             
-            print(f"A melhor categoria para a noticia {news_path} eh:  {best_category}")
+            # print(f"A melhor categoria para a noticia {news_path} eh:  {best_category}")
 
             self.news_best_category[news_path] = best_category
             
