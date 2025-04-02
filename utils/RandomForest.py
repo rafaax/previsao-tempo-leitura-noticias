@@ -1,8 +1,8 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, mean_absolute_error, mean_squared_error, r2_score
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from sklearn.compose import ColumnTransformer
 
 class RandomForest: 
@@ -12,43 +12,20 @@ class RandomForest:
         # test_size=0.3 significa que 30% dos dados serão usados para teste
         # random_state garante que a divisão seja a mesma cada vez que o código rodar
 
-    def datasetPreprocessor():
-        return 
+    def datasetPreprocessor(self, df):
+        label_encoders = {}  # dict para armazenar os encoders e evitar problemas na predição
+        for col in ['gender', 'state', 'device', 'periodo', 'best_category', 'time_spent_category']:
+            le = LabelEncoder()
+            df[col] = le.fit_transform(df[col])
+            label_encoders[col] = le
 
-
-    def calculateImportance(self, x,y):
-        categorical_cols = x.select_dtypes(include=['object']).columns
-        numerical_cols = x.select_dtypes(include=['int64', 'float64']).columns
-
-        preprocessor = ColumnTransformer(
-        transformers=[
-            ('cat', OneHotEncoder(), categorical_cols),
-            ('num', 'passthrough', numerical_cols)
-        ])
-
-        X_processed = preprocessor.fit_transform(x)
-
-        model = RandomForestClassifier(n_estimators=100, random_state=42)
-        model.fit(X_processed, y)
-
-        importances = model.feature_importances_
-
-        cat_encoder = preprocessor.named_transformers_['cat']
-        cat_features = cat_encoder.get_feature_names_out(categorical_cols)
-        all_features = list(cat_features) + list(numerical_cols)
-
-        feature_importance_df = pd.DataFrame({
-            'Feature': all_features,
-            'Importance': importances
-        }).sort_values(by='Importance', ascending=False).head(10) # pegar somente as 10 mais importantes
-
-        return feature_importance_df # timestamp / age / news_id / gender / device / category
+        return df, label_encoders
 
     def trainModel(self, x, y):
 
         X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=self.test_size, random_state=self.random_state)
 
-        model = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=self.random_state)
+        model = RandomForestRegressor(n_estimators=50, max_depth=5, random_state=self.random_state)
         
         categorical_cols = x.select_dtypes(include=['object']).columns
         numerical_cols = x.select_dtypes(include=['int64', 'float64']).columns
@@ -64,8 +41,6 @@ class RandomForest:
 
         model.fit(X_train_processed, y_train)
 
-        print(model)
-
         return model, X_train_processed, X_test_processed, y_train, y_test, preprocessor, X_test
 
     def predict(self, model, x_test, preprocessor):
@@ -74,8 +49,10 @@ class RandomForest:
         return y_pred
     
     def avaliateModel(self, y_pred, y_test):
-        accuracy = accuracy_score(y_test, y_pred)
-        print(f"Acurácia do modelo: {accuracy:.2f}")
-        print("\nRelatório de Classificação:")
-        print(classification_report(y_test, y_pred))
-        return 
+        mae = mean_absolute_error(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
+        r2 = r2_score(y_test, y_pred)
+
+        print(f"Erro Médio Absoluto (MAE): {mae:.2f}")
+        print(f"Erro Quadrático Médio (MSE): {mse:.2f}")
+        print(f"Coeficiente de Determinação (R²): {r2:.2f}")
