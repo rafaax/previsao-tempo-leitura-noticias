@@ -89,15 +89,12 @@ class Regex():
                 category: len(re.findall(pattern, news_text, re.IGNORECASE))
                 for category, pattern in self._regex.items()
             }
-            # print(category_count)
 
             best_category = max(category_count, key=category_count.get) # pega a categoria com maior numero de correspondências avaliados anteriormente
 
             if category_count[best_category] == 0:
                 return "Indefinido" # caso a melhor categoria aparece 0x no array, ou seja, nao tem melhor categoria, ele atribui um indefinido
             
-            # print(f"A melhor categoria para a noticia {news_path} eh:  {best_category}")
-
             self.news_best_category[news_path] = best_category
             
             return best_category

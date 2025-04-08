@@ -1,4 +1,4 @@
-def periodo_do_dia(timestamp):
+def periodo_do_dia(timestamp): # função para categorizar o período do dia baseado no timestamp
     hora = timestamp.hour
     if 6 <= hora < 12:
         return 'MANHA'
@@ -10,7 +10,7 @@ def periodo_do_dia(timestamp):
         return 'MADRUGADA'
     
 
-def menu(dataset_files):
+def menu(dataset_files): # função para imprimir o menu de opções para o usuário
     print("\nEscolha um dataset para análise:")
     for idx, file in enumerate(dataset_files, start = 1):
         print(f"{idx} - {file}")
