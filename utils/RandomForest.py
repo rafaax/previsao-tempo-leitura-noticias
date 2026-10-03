@@ -13,6 +13,7 @@ class RandomForest:
         # random_state garante que a divisão seja a mesma cada vez que o código rodar
 
     def datasetPreprocessor(self, df):
+        df = df.copy()  # trabalha em uma cópia para não alterar o dataframe original (mantém os nomes das categorias)
         label_encoders = {}  # dict para armazenar os encoders e evitar problemas na predição
         for col in ['gender', 'state', 'device', 'periodo', 'best_category']: # colunas categóricas
             le = LabelEncoder() 
