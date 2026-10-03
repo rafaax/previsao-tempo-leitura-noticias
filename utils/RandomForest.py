@@ -14,7 +14,7 @@ class RandomForest:
 
     def datasetPreprocessor(self, df):
         label_encoders = {}  # dict para armazenar os encoders e evitar problemas na predição
-        for col in ['gender', 'state', 'device', 'periodo', 'best_category', 'time_spent_category']: # colunas categóricas
+        for col in ['gender', 'state', 'device', 'periodo', 'best_category']: # colunas categóricas
             le = LabelEncoder() 
             df[col] = le.fit_transform(df[col]) # aplica o LabelEncoder para transformar as colunas categóricas em numéricas
             label_encoders[col] = le # armazena o encoder para cada coluna

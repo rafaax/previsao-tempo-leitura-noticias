@@ -52,9 +52,6 @@ def main():
 
         x = selected_df.drop(columns=['time_spent', 'name']) # remove a coluna time_spent e name da df para aplicar o pre-processamento
         
-        bins = [0, 600, 1800, float('inf')] # define os limites dos bins para categorizar o tempo gasto
-        labels = ['baixo', 'medio', 'alto'] # define os rótulos para cada bin
-        selected_df['time_spent_category'] = pd.cut(selected_df['time_spent'], bins=bins, labels=labels, right=False) # aplica a categorização do tempo gasto na coluna time_spent_category
         y = selected_df['time_spent'] # define a variável y como a coluna time_spent da df
         selected_df = selected_df.drop(columns=['time_spent', 'name', 'timestamp']) # remove as colunas time_spent, name e timestamp da df para aplicar o pre-processamento
 
