@@ -10,6 +10,11 @@ com Random Forest.
 - Gera um gráfico de pizza das categorias mais lidas por estado (`results/`)
 - Treina um `RandomForestRegressor` para prever `time_spent` e exibe MAE, MSE e R²
 
+## Exemplo de saída
+Gráfico gerado para o estado do Amapá (`results/`):
+
+![Categorias de notícias mais lidas no Amapá](docs/grafico-categorias-exemplo.jpg)
+
 ## Como rodar
 ```bash
 python -m venv venv && source venv/bin/activate
