@@ -1,22 +1,25 @@
-Titulo: Pipeline de logs de noticias utilizando Random Forest e Regex
+# previsao-tempo-leitura-noticias
 
-Descrição breve:
-Algoritmo em python para analisar um csv com informações referente à um sistema hipotético de um site de noticias. 
-O log armazena informações como o ID da noticia, qual dispositivo foi utilizado para acessar, e mais informações do usuário e do seu acesso.
-Modelo chegou num coeficiente médio de R² = 0.80. 
+Pipeline em Python que lê logs de acesso de um site de notícias (CSV),
+classifica cada notícia por tema com regex e prevê o tempo de leitura
+com Random Forest.
 
-Principais funcionalidades:
-  Menu para interação do usuario;
-  Análise de csv e separação por localidade;
-  Geração de gráficos para melhor visibilidade da porcentagem das categorias mais lidas por estado;
-  Aplicação de regex para avaliação do tema da noticia baseado no conteudo;
-  Aplicação de modelo Random Forest Regressor para previsão de tempo de leitura de usuarios à noticias baseados em todos os parametros do dataset.
+## O que faz
+- Separa o dataset por estado e gera um CSV por estado
+- Classifica as 20 notícias em esporte, tecnologia, saúde, política ou entretenimento
+- Gera um gráfico de pizza das categorias mais lidas por estado (`results/`)
+- Treina um `RandomForestRegressor` para prever `time_spent` e exibe MAE, MSE e R²
 
-Instruções de instalação/configuração:
-  python (3.13+)
-  pip install em todas bibliotecas do requirements.txt e rodar o projeto em qualquer terminal de sua preferência: python3/python/py index.py
+## Como rodar
+```bash
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+python index.py        # escolha um estado no menu
+```
 
-Autores:
-  Henry Murilo Lampoglio de Andrade
-  Raphael Gustavo Meireles
+## Estrutura
+`index.py` · `utils/` (Regex, Extraction, Charts, RandomForest, Transform, Utility) ·
+`mocks/dataset.csv` (2.000 acessos sintéticos) · `news/` (20 textos)
 
+## Autores
+Henry Lampoglio e Raphael Meireles
