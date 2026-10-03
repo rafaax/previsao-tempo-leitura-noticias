@@ -1,5 +1,3 @@
-# previsao-tempo-leitura-noticias
-
 Pipeline em Python que lê logs de acesso de um site de notícias (CSV),
 classifica cada notícia por tema com regex e prevê o tempo de leitura
 com Random Forest.
